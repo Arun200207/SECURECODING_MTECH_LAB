@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_USERS 5
+#define MAX_ATTEMPTS 3
+
+int main() {
+    // Predefined usernames and passwords
+    char usernames[MAX_USERS][20] = {"alice", "bob", "charlie", "david", "eve"};
+    char passwords[MAX_USERS][20] = {"pass1", "pass2", "pass3", "pass4", "pass5"};
+
+    char enteredUsername[20], enteredPassword[20];
+    int found = 0, attempts = 0;
+
+    printf("Enter username: ");
+    scanf("%s", enteredUsername);
+
+    // Check if username exists
+    for (int i = 0; i < MAX_USERS; i++) {
+        if (strcmp(enteredUsername, usernames[i]) == 0) {
+            found = 1;
+
+            // Give user 3 attempts to enter the correct password
+            while (attempts < MAX_ATTEMPTS) {
+                printf("Enter password: ");
+                scanf("%s", enteredPassword);
+
+                if (strcmp(enteredPassword, passwords[i]) == 0) {
+                    printf("Successful Authentication\n");
+                    return 0; // Exit the program
+                } else {
+                    attempts++;
+                    if (attempts < MAX_ATTEMPTS)
+                        printf("Incorrect password. Try again.\n");
+                }
+            }
+
+            // If 3 attempts exhausted
+            printf("Limit exceeded. Try later.\n");
+            return 0;
+        }
+    }
+
+    if (!found) {
+        printf("Username not found. Try again.\n");
+    }
+
+    return 0;
+}
