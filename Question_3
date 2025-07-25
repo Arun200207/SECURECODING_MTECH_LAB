@@ -1,0 +1,69 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define MAX_PASSWORD_LENGTH 100
+
+// Characters sets for password
+const char uppercase[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const char lowercase[] = "abcdefghijklmnopqrstuvwxyz";
+const char digits[] = "0123456789";
+const char special[] = "!@#$%^&*()-_=+[]{}|;:',.<>?/";
+
+void generatePassword(char *password, int length) {
+    int i;
+    int uppercase_len = sizeof(uppercase) - 1;
+    int lowercase_len = sizeof(lowercase) - 1;
+    int digits_len = sizeof(digits) - 1;
+    int special_len = sizeof(special) - 1;
+
+    // Ensure the password has at least one of each character type
+    password[0] = uppercase[rand() % uppercase_len];
+    password[1] = lowercase[rand() % lowercase_len];
+    password[2] = digits[rand() % digits_len];
+    password[3] = special[rand() % special_len];
+
+    // Fill the rest of the password length with random characters from all sets combined
+    char all_chars[uppercase_len + lowercase_len + digits_len + special_len + 1];
+    int index = 0;
+    for (i = 0; i < uppercase_len; i++) all_chars[index++] = uppercase[i];
+    for (i = 0; i < lowercase_len; i++) all_chars[index++] = lowercase[i];
+    for (i = 0; i < digits_len; i++) all_chars[index++] = digits[i];
+    for (i = 0; i < special_len; i++) all_chars[index++] = special[i];
+    all_chars[index] = '\0';
+
+    for (i = 4; i < length; i++) {
+        password[i] = all_chars[rand() % index];
+    }
+
+    // Shuffle the password to avoid predictable order
+    for (i = 0; i < length; i++) {
+        int j = rand() % length;
+        char temp = password[i];
+        password[i] = password[j];
+        password[j] = temp;
+    }
+
+    password[length] = '\0'; // Null-terminate the string
+}
+
+int main() {
+    int length;
+
+    srand(time(NULL));  // Seed the random number generator
+
+    printf("Enter the desired length for your strong password (minimum 4): ");
+    scanf("%d", &length);
+
+    if (length < 4 || length > MAX_PASSWORD_LENGTH) {
+        printf("Password length should be between 4 and %d.\n", MAX_PASSWORD_LENGTH);
+        return 1;
+    }
+
+    char password[MAX_PASSWORD_LENGTH + 1];
+    generatePassword(password, length);
+
+    printf("Generated strong password: %s\n", password);
+
+    return 0;
+}
