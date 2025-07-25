@@ -1,0 +1,11 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+int main(int argc, char *argv[])
+{
+printf("PID=%d\n",getpid());
+char *args[]= {"Hello", "C", "Programming", NULL};
+execv("./hello,args");
+printf("Back to exec.c- This line will not be executed");
+return 0; 
+}
