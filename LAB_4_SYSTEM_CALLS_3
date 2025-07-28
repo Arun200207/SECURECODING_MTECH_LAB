@@ -1,0 +1,12 @@
+#inlcude<stdio.h>
+#include<unistd.h>
+#include<stdlib.h>
+int main(int argc, char *argv[])
+{
+  printtf("PID=%d\n",getpid());
+  char *args[]={"Hello,"C","Programming", NULL};
+  print("We are in Hello.c\n");
+  printf("PID of hello.c=%d\n",getpid());
+  printf("Back to exec.c- This line will not be executed");
+  return 0;
+}
