@@ -1,1 +1,5 @@
-
+gcc hello.c o hello
+./hello
+Output: 
+We Are In Hello.c
+PID of hello.c = 3124
