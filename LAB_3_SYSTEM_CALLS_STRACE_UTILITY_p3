@@ -1,0 +1,11 @@
+gcc runner.c -o runner
+./runner ls -l
+strace -f ./runner ls -l
+fork() or clone() - to create a child process 
+execvp() -> internally calls execv()
+waitpid() or wait() - to wait for child process 
+write() - from printf or child process output 
+
+Running the trace
+strace -f -o trace.txt ./runner ls -l
+less trace.txt
