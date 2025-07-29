@@ -1,0 +1,2 @@
+gcc -o getpid_test getpid_test.c
+strace ./getpid_test
